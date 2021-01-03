@@ -2,11 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './registerServiceWorker'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import api from './api'
 import { getRequest, jsonRequest, formRequest, uploadFileRequest, downloadRequest, downloadFile } from './utils/http'
+import { initMenu } from './utils/system'
 
 Vue.config.productionTip = false
 
@@ -25,8 +25,6 @@ Vue.prototype.downloadFile = downloadFile;
 // 字典全局封装
 //Vue.prototype.getDictList = getDictList;
 //Vue.prototype.getDictLabel = getDictLabel;
-
-
 
 new Vue({
   router,

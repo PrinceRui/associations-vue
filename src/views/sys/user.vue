@@ -40,7 +40,7 @@ export default {
     findList (user) {
       this.loading = true
       this.formRequest(this.$api.sys.user.list, user).then(result => {
-        this.list = result.data
+        this.list = result
         this.loading = false
       })
     }

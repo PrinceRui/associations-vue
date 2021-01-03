@@ -4,7 +4,7 @@
  */
 import axios from 'axios'
 import qs from 'qs'
-import { Message } from 'element-ui'
+import { Message,Notification } from 'element-ui'
 // import { getToken } from '@/utils/auth'
 import router from '../router'
 
@@ -44,8 +44,8 @@ service.interceptors.request.use(
 
 // 响应拦截
 service.interceptors.response.use(
-  data => {
-    /// / ''(data)
+  resp => {
+    var data = resp.data;
     /* 未登录从定向 */
    /* if (data.status && data.status === 200 && data.data.code === 401) {
       Message.warning({ message: data.data.msg, offset: 60, showClose: true })
@@ -57,9 +57,17 @@ service.interceptors.response.use(
       Message.error({ message: data.data.msg, offset: 60, showClose: true })
       return
     }
-    if (data.data.msg) {
-      Message.success({ message: data.data.msg, offset: 60, showClose: true })
-    }*/
+    */
+    if (data.code != 1) {
+      Message.error({ message: data.massage, offset: 80, showClose: true })
+      //Notification.error({ message: data.message, position: 'bottom-right' })
+      return
+    }
+    console.log(data);
+    if (data.code == 1) {
+      //Message.success({ message: data.message, offset: 80, showClose: true })
+      //Notification.success({ message: data.message, position: 'bottom-right' })
+    }
     return data.data
   },
   err => {
@@ -80,7 +88,7 @@ service.interceptors.response.use(
   }
 )
 
-const base = ''
+const base = '/a'
 
 export const getRequest = url => {
   return service({
