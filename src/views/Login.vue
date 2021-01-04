@@ -9,7 +9,7 @@ export default {
   name: "Login",
   methods: {
     login(){
-      this.$router.push({path:'/home'})
+      this.$router.push({path:'/'})
 
     }
   }

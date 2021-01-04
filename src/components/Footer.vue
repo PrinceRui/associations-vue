@@ -3,7 +3,7 @@
     <div style="width: 100%; padding-right: 20px">
       <p style="font-size: 12px; color: #555">
       <!--© 2021 Rui. All rights reserved.-->
-        &nbsp;&nbsp;&nbsp;&nbsp;Copyright 2021 by Rui.
+        Copyright 2021 by Rui.
       </p>
     </div>
   </el-container>

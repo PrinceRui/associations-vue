@@ -11,10 +11,10 @@ export default {
   },
   // 用户管理
   user: {
-    get: '/sys/user/get',
     list: '/sys/user/list',
     delete: '/sys/user/delete',
-    save: '/sys/user/save'
+    save: '/sys/user/save',
+    resetPassword: '/sys/user/resetPassword'
   },
   // 菜单管理
   menu: {

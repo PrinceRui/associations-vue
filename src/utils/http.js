@@ -4,14 +4,14 @@
  */
 import axios from 'axios'
 import qs from 'qs'
-import { Message,Notification } from 'element-ui'
-// import { getToken } from '@/utils/auth'
-import router from '../router'
+import router from '@/router'
+import { Message } from 'element-ui'
+import { getToken } from '@/utils/auth'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
 // axios默认配置
 // axios.defaults.timeout = 10000; // 超时时间
-// axios.defaults.baseURL = '/apis'; // 默认地址
+ axios.defaults.baseURL = '/apis'; // 默认地址
 
 // 创建axios实例
 const service = axios.create({
@@ -26,7 +26,7 @@ service.interceptors.request.use(
   config => {
     // 1. 这个位置就请求前最后的配置
     // 2. 也可以在这个位置加入后端需要的用户授权信息
-    // config.headers.Authorization = getToken()
+    config.headers.Authorization = getToken()
     // 如果是get请求，且params是数组类型如arr=[1,2]，则转换成arr=1&arr=2
     if (config.method === 'get') {
       // 如果是get请求，且params是数组类型如arr=[1,2]，则转换成arr=1&arr=2
@@ -45,7 +45,6 @@ service.interceptors.request.use(
 // 响应拦截
 service.interceptors.response.use(
   resp => {
-    var data = resp.data;
     /* 未登录从定向 */
    /* if (data.status && data.status === 200 && data.data.code === 401) {
       Message.warning({ message: data.data.msg, offset: 60, showClose: true })
@@ -58,12 +57,20 @@ service.interceptors.response.use(
       return
     }
     */
+    /*if (resp.status != 200){
+      this.$router.push({path:'/error', params: { status: resp.status, message: resp.massage }})
+      return
+    }*/
+    var data = resp.data;
+    if (data.code === '404'){
+      router.push("/404")
+      return
+    }
     if (data.code != 1) {
       Message.error({ message: data.massage, offset: 80, showClose: true })
       //Notification.error({ message: data.message, position: 'bottom-right' })
       return
     }
-    console.log(data);
     if (data.code == 1) {
       //Message.success({ message: data.message, offset: 80, showClose: true })
       //Notification.success({ message: data.message, position: 'bottom-right' })
@@ -71,7 +78,7 @@ service.interceptors.response.use(
     return data.data
   },
   err => {
-    if (err.response.status === 504 || err.response.status === 404) {
+    /*if (err.response.status === 504 || err.response.status === 404) {
       Message.error({ message: '服务器被吃了⊙﹏⊙∥' })
     } else if (err.response.status === 403) {
       Message.error({ message: '权限不足,请联系管理员!' })
@@ -83,12 +90,13 @@ service.interceptors.response.use(
       } else {
         Message.error({ message: '未知错误!' })
       }
-    }
-    // return Promise.resolve(err);
+    }*/
+    router.push({name:'系统错误页面', params: err.response})
+     return /*Promise.resolve(err);*/
   }
 )
 
-const base = '/a'
+const base = ''
 
 export const getRequest = url => {
   return service({

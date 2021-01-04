@@ -12,7 +12,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: Login,
       meta: {
@@ -20,17 +20,34 @@ const router = new Router({
       }
     },
     {
-      path: '/home',
+      path: '/',
       name: '首页',
       component: Home
+    },
+    {
+      path: '/error',
+      name: '系统错误页面',
+      component: function () {
+        return import('./views/error')
+      },
+      meta: {
+        isError: true
+      }
+    },
+    {
+      path: "*",
+      name: '404',
+      component: function () {
+        return import('@/views/error/404')
+      },
+      meta: {
+        isError: true
+      }
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-
-  // NProgress.start()
-
   if (to.name == "login") {
     next();
     return;
