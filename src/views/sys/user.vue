@@ -19,9 +19,11 @@
        :data="list"
        border
        style="width: 100%">
-     <el-table-column
-         prop="officeName"
-         label="班级/部门"/>
+     <el-table-column label="班级/部门">
+       <template slot-scope="scope">
+         {{ scope.row.office.name }}
+       </template>
+     </el-table-column>
      <el-table-column
          prop="num"
          label="学号/工号"/>
@@ -50,7 +52,9 @@
    <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="班级/部门">
-         <el-input v-model="form.user.office.id"/>
+         <el-select v-model="form.user.office.id" filterable>
+           <el-option v-for="item in form.offices" :key="item.id" :label="item.name" :value="item.id"/>
+         </el-select>
        </el-form-item>
        <el-form-item label="学号/工号">
          <el-input v-model="form.user.num"/>
@@ -97,6 +101,7 @@ export default {
         name: ''
       },
       form: {
+        offices: '',
         dialogVisible: false,
         loading: false,
         user: {
@@ -108,8 +113,7 @@ export default {
           name: '',
           email: '',
           phone : '',
-          userType: '',
-          officeName: ''
+          userType: ''
         }
       }
     }
@@ -125,6 +129,7 @@ export default {
     },
     /* 打开增加窗口 */
     openAddDialog(){
+      this.findAllOffices();
       this.form.dialogVisible = true;
       this.form.loading = false;
       this.form.user = {office: {id: '', name: ''},
@@ -178,7 +183,13 @@ export default {
     /* 筛选 */
     search(){
       this.findList(this.user)
-    }
+    },
+    /* 获取所有菜单 */
+    findAllOffices(){
+      this.getRequest(this.$api.sys.office.allList).then((res)=>{
+        this.form.offices = res;
+      })
+    },
   },
   mounted () {
     this.findList({})

@@ -4,8 +4,8 @@
 export default {
   // 部门管理
   office: {
-    get: '/sys/office/get',
-    list: '/sys/office/list',
+    allList: '/sys/office/allList',
+    treeList: '/sys/office/treeList',
     delete: '/sys/office/delete',
     save: '/sys/office/save'
   },
@@ -14,7 +14,8 @@ export default {
     list: '/sys/user/list',
     delete: '/sys/user/delete',
     save: '/sys/user/save',
-    resetPassword: '/sys/user/resetPassword'
+    resetPassword: '/sys/user/resetPassword',
+    getAllUser: '/sys/user/getAllUser'
   },
   // 菜单管理
   menu: {
