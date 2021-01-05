@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: "Login",
   methods: {
     login(){
       this.$router.push({path:'/'})

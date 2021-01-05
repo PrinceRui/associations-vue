@@ -34,9 +34,11 @@
      <el-table-column
          prop="phone"
          label="电话"/>
-     <el-table-column
-         prop="userType"
-         label="用户类型"/>
+     <el-table-column label="用户类型">
+       <template slot-scope="scope">
+         {{ getDictLabel(scope.row.userType, "user_type") }}
+       </template>
+     </el-table-column>
      <el-table-column label="操作">
        <template slot-scope="scope">
          <!--<el-link icon="el-icon-view" style="margin-right: 15px">查看</el-link>-->
@@ -45,7 +47,7 @@
        </template>
      </el-table-column>
    </el-table>
-   <el-dialog title="收货地址" :visible.sync="form.dialogVisible" v-loading="form.loading">
+   <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="班级/部门">
          <el-input v-model="form.user.office.id"/>
@@ -64,8 +66,12 @@
        </el-form-item>
        <el-form-item label="用户类型">
          <el-select v-model="form.user.userType">
-           <el-option label="老师" value="1"></el-option>
-           <el-option label="学生" value="2"></el-option>
+           <el-option
+               v-for="item in getDictList('user_type')"
+               :key="item.id"
+               :label="item.label"
+               :value="item.value"
+           />
          </el-select>
        </el-form-item>
        <el-form-item label="">
@@ -82,7 +88,6 @@
 
 <script>
 export default {
-  name: 'user',
   data () {
     return {
       loading: false,
@@ -143,18 +148,17 @@ export default {
     },
     /* 删除按钮操作 */
     del(user) {
-      this.$confirm("确认删除吗?", "警告", {
+      this.$confirm("确认删除用户'"+user.num+user.name+"'吗?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
         this.formRequest(this.$api.sys.user.delete, {id: user.id}).then(()=>{
           this.message.success({ message: "删除用户'"+user.num+user.name+"'成功", showClose: true })
-        });
-      }).then(() => {
+        }).then(() => {
           this.findList({});
-      }).catch(function () {
-      });
+        });
+      })
     },
     /* 重置密码按钮操作 */
     resetPwd(user) {

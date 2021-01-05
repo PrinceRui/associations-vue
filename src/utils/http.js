@@ -62,6 +62,7 @@ service.interceptors.response.use(
       return
     }*/
     var data = resp.data;
+    console.log(data)
     if (data.code === '404'){
       router.push("/404")
       return

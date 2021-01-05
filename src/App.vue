@@ -14,12 +14,12 @@
             active-text-color="#de4436"
             background-color="#f9fbfd">
           <el-menu-item index="/home" @click="addTab({name: '首页'})">
-            <i class="el-icon-menu"></i>
+            <i class="el-icon-s-home"></i>
             <span slot="title">首页</span>
           </el-menu-item>
           <template v-for="(item, index) in this.menu">
             <template v-if="hasChildren(item)">
-              <el-submenu :index="String(index)" :key="item.id">
+              <el-submenu :index="String(index)" :key="item.id" @click="addTab(item)">
                 <template slot="title">
                   <i :class="item.icon"></i>
                   {{ item.name }}
@@ -70,7 +70,6 @@ import Footer from "@/components/Footer";
 import Login from "@/views/Login";
 import {Message} from "element-ui";
 export default {
-  name: "App",
   components: {
     Header: Header,
     Footer: Footer,
@@ -99,7 +98,7 @@ export default {
       let b = false;
       if (menu.childs && menu.childs instanceof Array) {
         menu.childs.forEach(child => {
-          if (child.meta.isShow == 1) {
+          if (child.isShow == 1) {
             b = true;
           }
         });

@@ -18,8 +18,7 @@ export default {
   },
   // 菜单管理
   menu: {
-    get: '/sys/menu/get',
-    list: '/sys/menu/list',
+    allList: '/sys/menu/allList',
     treeList: '/sys/menu/treeList',
     delete: '/sys/menu/delete',
     save: '/sys/menu/save'
@@ -35,11 +34,9 @@ export default {
   },
   // 字典管理
   dict: {
-    get: '/sys/dict/get',
     list: '/sys/dict/list',
     delete: '/sys/dict/delete',
     save: '/sys/dict/save',
-    typeList: '/sys/dict/typeList'
   },
   // 日志管理
   log: {

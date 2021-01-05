@@ -5,6 +5,7 @@ import store from './store'
 import api from './api'
 import { getRequest, jsonRequest, formRequest, uploadFileRequest, downloadRequest, downloadFile } from './utils/http'
 import { Message } from 'element-ui'
+import {getDictLabell,getDictListt} from "@/utils/system";
 
 Vue.config.productionTip = false
 
@@ -31,8 +32,8 @@ Vue.prototype.downloadFile = downloadFile;
 Vue.prototype.message = Message;
 
 // 字典全局封装
-//Vue.prototype.getDictList = getDictList;
-//Vue.prototype.getDictLabel = getDictLabel;
+Vue.prototype.getDictList = getDictListt;
+Vue.prototype.getDictLabel = getDictLabell;
 
 new Vue({
   router,
