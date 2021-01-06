@@ -78,8 +78,8 @@
            />
          </el-select>
        </el-form-item>
-       <el-form-item label="">
-         默认密码为123456
+       <el-form-item>
+         <span style="color: #8492a6; font-size: 13px">提示：默认密码为123456，默认角色为[普通用户]</span>
        </el-form-item>
      </el-form>
      <div slot="footer" class="dialog-footer">
@@ -145,7 +145,7 @@ export default {
       this.form.loading = true;
       this.jsonRequest(this.$api.sys.user.save, this.form.user).then(()=> {
         this.form.dialogVisible = false;
-        this.message.success({ message: "新增用户'"+this.form.user.num+this.form.user.name+"'成功", showClose: true })
+        this.message.success({ message: "保存用户'"+this.form.user.num+this.form.user.name+"'成功", showClose: true })
         this.findList({});
       }).finally(()=> {
         this.form.loading = false;

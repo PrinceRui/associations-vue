@@ -151,7 +151,7 @@ export default {
       this.form.loading = true;
       this.jsonRequest(this.$api.sys.office.save, this.form.office).then(()=> {
         this.form.dialogVisible = false;
-        this.message.success({ message: "新增'"+this.form.office.name+"'成功", showClose: true })
+        this.message.success({ message: "保存'"+this.form.office.name+"'成功", showClose: true })
         this.findList({});
       }).finally(()=> {
         this.form.loading = false;

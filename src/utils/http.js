@@ -34,6 +34,7 @@ service.interceptors.request.use(
         return qs.stringify(params, { arrayFormat: 'repeat' })
       }
     }
+    console.log(config)
     return config
   },
   error => {

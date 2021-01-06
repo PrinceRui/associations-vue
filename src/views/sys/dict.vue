@@ -36,7 +36,6 @@
          label="排序"/>
      <el-table-column label="操作">
        <template slot-scope="scope">
-         <!--<el-link icon="el-icon-view" style="margin-right: 15px">查看</el-link>-->
          <el-link icon="el-icon-edit" style="margin-right: 15px" @click="edit(scope.row)">编辑</el-link>
          <el-link icon="el-icon-delete" @click="del(scope.row)">删除</el-link>
        </template>
@@ -117,7 +116,7 @@ export default {
       this.form.loading = true;
       this.jsonRequest(this.$api.sys.dict.save, this.form.dict).then(()=> {
         this.form.dialogVisible = false;
-        this.message.success({ message: "新增字典成功", showClose: true })
+        this.message.success({ message: "保存字典成功", showClose: true })
         this.findList({});
       }).finally(()=> {
         this.form.loading = false;

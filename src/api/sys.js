@@ -21,6 +21,7 @@ export default {
   menu: {
     allList: '/sys/menu/allList',
     treeList: '/sys/menu/treeList',
+    allTreeList: '/sys/menu/allTreeList',
     delete: '/sys/menu/delete',
     save: '/sys/menu/save'
   },
@@ -30,8 +31,8 @@ export default {
     list: '/sys/role/list',
     delete: '/sys/role/delete',
     save: '/sys/role/save',
-    assignRole: '/sys/role/assignRole',
-    outRole: '/sys/role/outRole'
+    auth: '/sys/role/auth',
+    assignRole: '/sys/role/assignRole'
   },
   // 字典管理
   dict: {

@@ -87,7 +87,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          修改菜单后需要刷新才可生效
+          <span style="color: #8492a6; font-size: 13px">提示：修改菜单后需要刷新才可生效</span>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -162,7 +162,7 @@ export default {
       this.form.loading = true;
       this.jsonRequest(this.$api.sys.menu.save, this.form.menu).then(()=> {
         this.form.dialogVisible = false;
-        this.message.success({ message: "新增菜单'"+this.form.menu.name+"'成功", showClose: true })
+        this.message.success({ message: "保存菜单'"+this.form.menu.name+"'成功", showClose: true })
         this.findList({});
       }).finally(()=> {
         this.form.loading = false;
