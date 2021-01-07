@@ -62,14 +62,15 @@ service.interceptors.response.use(
       this.$router.push({path:'/error', params: { status: resp.status, message: resp.massage }})
       return
     }*/
-    var data = resp.data;
+      console.log(resp)
+    let data = resp.data;
     console.log(data)
     if (data.code === '404'){
       router.push("/404")
       return
     }
     if (data.code != 1) {
-      Message.error({ message: data.massage, offset: 80, showClose: true })
+      Message.error({ message: data.message, offset: 80, showClose: true })
       //Notification.error({ message: data.message, position: 'bottom-right' })
       return
     }

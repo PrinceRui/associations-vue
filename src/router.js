@@ -4,6 +4,7 @@ import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import {initMenu} from "@/utils/system";
 import store from "@/store";
+import { getToken } from "@/utils/auth";
 
 Vue.use(Router)
 
@@ -48,24 +49,25 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+
   if (to.name == "login") {
     next();
     return;
   }
-  initMenu(router, store);
-  next();
-  /*if (getToken() == undefined) {
-    if (to.meta.requireAuth || to.name == null) {
-      next({path: "/", query: {redirect: to.path}});
-    } else {
-      next();
+  /*initMenu(router, store);
+  next();*/
+  if (getToken() == undefined || getToken() === '') {
+    //if (to.meta.requireAuth || to.name == null) {
+      next({path: "/login"});
+    //} else {
+    //  next();
       // NProgress.done()
-    }
+    //}
   } else {
     initMenu(router, store);
     next();
     // NProgress.done()
-  }*/
+  }
 });
 
 router.afterEach(() => {
