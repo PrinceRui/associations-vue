@@ -41,6 +41,18 @@
        </template>
      </el-table-column>
    </el-table>
+   <div style="margin: 5px">
+     <el-pagination
+         :page-size="dict.page.pageSize"
+         :total="dict.page.count"
+         :current-page="dict.page.pageNo"
+         @size-change="handleSizeChange"
+         @current-change="handleCurrentChange"
+         :page-sizes="[10, 30, 50, 100, 500]"
+         layout="total, sizes, prev, pager, next, jumper"
+     >
+     </el-pagination>
+   </div>
    <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="描述">
@@ -74,6 +86,11 @@ export default {
       loading: false,
       list: [],
       dict: {
+        page: {
+          pageNo: 1,
+          pageSize: 30,
+          count: 0,
+        },
         description: '',
         type: ''
       },
@@ -95,7 +112,8 @@ export default {
     findList (dict) {
       this.loading = true
       this.jsonRequest(this.$api.sys.dict.list, dict).then(result => {
-        this.list = result
+        this.dict.page = result;
+        this.list = result.list;
         this.loading = false
       })
     },
@@ -149,6 +167,14 @@ export default {
   },
   mounted () {
     this.findList({})
+  },
+  handleSizeChange(val) {
+    this.dict.page.pageSize = val;
+    this.findList(this.user);
+  },
+  handleCurrentChange(val) {
+    this.dict.page.pageNo = val;
+    this.findList(this.user);
   }
 }
 </script>

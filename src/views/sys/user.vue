@@ -49,6 +49,18 @@
        </template>
      </el-table-column>
    </el-table>
+   <div style="margin: 5px">
+     <el-pagination
+         :page-size="user.page.pageSize"
+         :total="user.page.count"
+         :current-page="user.page.pageNo"
+         @size-change="handleSizeChange"
+         @current-change="handleCurrentChange"
+         :page-sizes="[10, 30, 50, 100, 500]"
+         layout="total, sizes, prev, pager, next, jumper"
+     >
+     </el-pagination>
+   </div>
    <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="班级/部门">
@@ -97,6 +109,11 @@ export default {
       loading: false,
       list: [],
       user: {
+        page: {
+          pageNo: 1,
+          pageSize: 30,
+          count: 0,
+        },
         num: '',
         name: ''
       },
@@ -123,7 +140,8 @@ export default {
     findList (user) {
       this.loading = true
       this.jsonRequest(this.$api.sys.user.list, user).then(result => {
-        this.list = result
+        this.user.page = result;
+        this.list = result.list;
         this.loading = false
       })
     },
@@ -190,6 +208,14 @@ export default {
         this.form.offices = res;
       })
     },
+    handleSizeChange(val) {
+      this.user.page.pageSize = val;
+      this.findList(this.user);
+    },
+    handleCurrentChange(val) {
+      this.user.page.pageNo = val;
+      this.findList(this.user);
+    }
   },
   mounted () {
     this.findList({})

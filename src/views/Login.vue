@@ -67,7 +67,7 @@ export default {
               .then(result => {
                 if(result != undefined && result != ''){
                   setToken(result);
-                  this.$router.push('/');
+                  this.$router.push('/index');
                 }
                 /*let path = this.$route.query.redirect;
                 this.$router.replace({

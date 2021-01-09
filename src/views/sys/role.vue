@@ -32,6 +32,18 @@
         </template>
       </el-table-column>
     </el-table>
+    <div style="margin: 5px">
+      <el-pagination
+          :page-size="role.page.pageSize"
+          :total="role.page.count"
+          :current-page="role.page.pageNo"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :page-sizes="[10, 30, 50, 100, 500]"
+          layout="total, sizes, prev, pager, next, jumper"
+      >
+      </el-pagination>
+    </div>
     <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
       <el-form label-position="right" label-width="80px">
         <el-form-item label="名称">
@@ -88,6 +100,11 @@ export default {
       loading: false,
       list: [],
       role: {
+        page: {
+          pageNo: 1,
+          pageSize: 30,
+          count: 0,
+        },
         name: ''
       },
       form: {
@@ -118,7 +135,8 @@ export default {
     findList (role) {
       this.loading = true
       this.jsonRequest(this.$api.sys.role.list, role).then(result => {
-        this.list = result
+        this.role.page = result;
+        this.list = result.list;
         this.loading = false
       })
     },
@@ -229,6 +247,14 @@ export default {
     /* 筛选 */
     search(){
       this.findList(this.role)
+    },
+    handleSizeChange(val) {
+      this.role.page.pageSize = val;
+      this.findList(this.user);
+    },
+    handleCurrentChange(val) {
+      this.role.page.pageNo = val;
+      this.findList(this.user);
     }
   },
   mounted () {

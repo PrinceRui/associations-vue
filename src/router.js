@@ -13,7 +13,7 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
       meta: {
@@ -21,7 +21,7 @@ const router = new Router({
       }
     },
     {
-      path: '/',
+      path: '/index',
       name: '首页',
       component: Home
     },
@@ -58,7 +58,7 @@ router.beforeEach((to, from, next) => {
   next();*/
   if (getToken() == undefined || getToken() === '') {
     //if (to.meta.requireAuth || to.name == null) {
-      next({path: "/login"});
+      next({path: "/"});
     //} else {
     //  next();
       // NProgress.done()
