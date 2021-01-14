@@ -176,7 +176,6 @@ export default {
     getAllUser(){
       this.getRequest(this.$api.sys.user.getAllUser).then((res)=>{
         this.form.users = res;
-        console.log(res)
       })
     },
   },
