@@ -4,7 +4,7 @@ import Login from './views/Login.vue'
 import Home from './views/Home.vue'
 import {initMenu} from "@/utils/system";
 import store from "@/store";
-import { getToken } from "@/utils/auth";
+import { getToken, removeToken } from "@/utils/auth";
 
 Vue.use(Router)
 
@@ -51,6 +51,7 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
 
   if (to.name == "login") {
+    removeToken();
     next();
     return;
   }

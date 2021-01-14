@@ -3,10 +3,12 @@
  * @author rui
  */
 import sys from './sys'
+import ass from './ass'
 
 export default {
   /* 系统登录登出 */
   login: "/login",
   logout: "/logout",
-  sys
+  sys,
+  ass
 }

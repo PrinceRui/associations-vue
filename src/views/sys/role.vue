@@ -241,7 +241,6 @@ export default {
     getAllUser(){
       this.getRequest(this.$api.sys.user.getAllUser).then((res)=>{
         this.assignRole.users = res;
-        console.log(res)
       })
     },
     /* 筛选 */
