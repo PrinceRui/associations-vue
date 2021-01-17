@@ -15,6 +15,9 @@ export default {
     delete: '/sys/user/delete',
     save: '/sys/user/save',
     resetPassword: '/sys/user/resetPassword',
+    updateInfo: '/sys/user/updateInfo',
+    updatePwd: '/sys/user/updatePwd',
+    imageUpload: '/sys/user/imageUpload',
     getAllUser: '/sys/user/getAllUser'
   },
   // 菜单管理

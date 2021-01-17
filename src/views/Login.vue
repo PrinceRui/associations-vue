@@ -65,8 +65,14 @@ export default {
           this.loading = true;
           this.formRequest(this.$api.login, this.form)
               .then(result => {
+                if(result == 'error'){
+                  return;
+                }
                 if(result != undefined && result != ''){
                   setToken(result);
+                  this.getRequest(this.$api.userInfo).then(res=>{
+
+                  });
                   this.$router.push('/index');
                 }
                 /*let path = this.$route.query.redirect;

@@ -72,7 +72,7 @@ service.interceptors.response.use(
     if (data.code != 1) {
       Message.error({ message: data.message, offset: 80, showClose: true })
       //Notification.error({ message: data.message, position: 'bottom-right' })
-      return
+      return 'error';
     }
     if (data.code == 1) {
       //Message.success({ message: data.message, offset: 80, showClose: true })

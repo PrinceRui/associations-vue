@@ -1,4 +1,4 @@
-import { jsonRequest, formRequest } from "./http";
+import { getRequest, jsonRequest, formRequest } from "./http";
 import api from "@/api";
 import Vue from "vue";
 import store from '@/store'
@@ -16,6 +16,29 @@ export const initMenu = (router, store) => {
     jsonRequest(api.sys.menu.treeList, {}).then(resp => {
         /* 将菜单储存在store中 */
         store.commit("initMenu", resp);
+    });
+};
+
+/*
+ ************************************
+               用户相关
+ ************************************
+ */
+export const initUser = () => {
+    if (!store.state.user == '') {
+        return;
+    }
+    /* 获取菜单 */
+    getRequest(api.userInfo).then(resp => {
+        /* 将菜单储存在store中 */
+        store.commit("initUser", resp);
+    });
+};
+/* 更新用户信息 */
+export const updateUserInfo = () => {
+    getRequest(api.userInfo).then(resp => {
+        /* 将菜单储存在store中 */
+        store.commit("initUser", resp);
     });
 };
 

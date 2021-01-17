@@ -59,7 +59,6 @@
        <el-form-item label="名称">
          <el-input v-model="form.activity.name"/>
        </el-form-item>
-
        <el-form-item label="负责社团">
          <el-select v-model="form.activity.ass.id" placeholder="请选择" filterable>
            <el-option
@@ -70,15 +69,22 @@
            </el-option>
          </el-select>
        </el-form-item>
-
        <el-form-item label="内容">
          <el-input v-model="form.activity.content"/>
        </el-form-item>
        <el-form-item label="发布时间">
-         <el-input v-model="form.activity.startTime"/>
+         <el-date-picker
+             v-model="form.activity.startTime"
+             type="date"
+             placeholder="选择日期">
+         </el-date-picker>
        </el-form-item>
        <el-form-item label="截止报名时间">
-         <el-input v-model="form.activity.endTime"/>
+         <el-date-picker
+             v-model="form.activity.endTime"
+             type="date"
+             placeholder="选择日期">
+         </el-date-picker>
        </el-form-item>
        <el-form-item label="审核状态">
          <el-select v-model="form.activity.status">

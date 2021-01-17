@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from './views/Login.vue'
 import Home from './views/Home.vue'
-import {initMenu} from "@/utils/system";
+import {initMenu, initUser} from "@/utils/system";
 import store from "@/store";
 import { getToken, removeToken } from "@/utils/auth";
 
@@ -59,12 +59,14 @@ router.beforeEach((to, from, next) => {
   next();*/
   if (getToken() == undefined || getToken() === '') {
     //if (to.meta.requireAuth || to.name == null) {
+
       next({path: "/"});
     //} else {
     //  next();
       // NProgress.done()
     //}
   } else {
+    initUser();
     initMenu(router, store);
     next();
     // NProgress.done()

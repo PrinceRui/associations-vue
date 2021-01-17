@@ -9,6 +9,7 @@ export default {
   /* 系统登录登出 */
   login: "/login",
   logout: "/logout",
+  userInfo: "/userInfo",
   sys,
   ass
 }
