@@ -16,9 +16,14 @@
        :data="list"
        border
        style="width: 100%">
-     <el-table-column
+     <el-table-column label="logo">
+       <template slot-scope="scope">
+         <el-avatar :src="scope.row.photo"></el-avatar>
+       </template>
+     </el-table-column>
+<!--     <el-table-column
          prop="photo"
-         label="logo"/>
+         label="logo"/>-->
      <el-table-column
          prop="name"
          label="名称"/>

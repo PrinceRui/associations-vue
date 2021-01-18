@@ -4,10 +4,13 @@
 export default {
     // 社团管理
     ass: {
+        get: '/ass/ass/get',
         list: '/ass/ass/list',
         delete: '/ass/ass/delete',
         save: '/ass/ass/save',
         masterList: '/ass/ass/masterList',
+        updateLogo: '/ass/ass/updateLogo',
+        updateSummary: '/ass/ass/updateSummary',
         allList: '/ass/ass/allList'
     },
     // 活动

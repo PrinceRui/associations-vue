@@ -21,6 +21,7 @@
     <el-dialog :visible.sync="avatar.dialogVisible" v-loading="avatar.loading" append-to-body width="300px" style="text-align: center">
       <el-upload
           class="avatar-uploader"
+          action=""
           :show-file-list="false"
           :before-upload="beforeAvatarUpload">
         <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -77,7 +78,6 @@ import {getRequest} from "@/utils/http";
 import {getToken, removeToken} from "@/utils/auth";
 import {initUser, updateUserInfo} from "@/utils/system";
 
-name
 export default {
   name: "Header",
   data(){
@@ -118,12 +118,13 @@ export default {
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
-
       if (!isJPG) {
         this.$message.error('上传头像图片只能是 JPG 格式!');
+        return false;
       }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!');
+        return false;
       }
       let fd = new FormData();
       fd.append("file", file);

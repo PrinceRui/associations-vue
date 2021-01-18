@@ -12,7 +12,6 @@
     <el-table
         v-loading="loading"
         :data="list"
-        border
         style="width: 100%">
       <el-table-column label="班级/部门">
         <template slot-scope="scope">
@@ -22,6 +21,11 @@
       <el-table-column label="学号">
         <template slot-scope="scope">
           {{ scope.row.user.num }}
+        </template>
+      </el-table-column>
+      <el-table-column label="头像">
+        <template slot-scope="scope">
+          <el-avatar :src="scope.row.user.photo"></el-avatar>
         </template>
       </el-table-column>
       <el-table-column label="姓名">

@@ -14,7 +14,6 @@
     <el-table
         v-loading="loading"
         :data="list"
-        border
         row-key="id"
         :tree-props="{children: 'childs'}"
         style="width: 100%">

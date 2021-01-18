@@ -14,13 +14,17 @@
     <el-table
         v-loading="loading"
         :data="list"
-        border
         row-key="id"
         :tree-props="{children: 'childs'}"
         style="width: 100%">
-      <el-table-column
+      <el-table-column label="名称">
+        <template slot-scope="scope">
+          <i :class="scope.row.icon"></i>&nbsp;&nbsp;{{ scope.row.name }}
+        </template>
+      </el-table-column>
+<!--      <el-table-column
           prop="name"
-          label="名称"/>
+          label="名称"/>-->
       <el-table-column
           prop="sort"
           label="排序"/>
