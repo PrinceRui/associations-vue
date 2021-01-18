@@ -39,6 +39,9 @@
         <el-form-item label="手机">
           <el-input v-model="info.user.phone"/>
         </el-form-item>
+        <el-form-item>
+          <span style="color: #8492a6; font-size: 13px">提示：修改后需重新登陆才可生效</span>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="info.dialogVisible = false">取 消</el-button>
@@ -48,13 +51,16 @@
     <el-dialog :visible.sync="pwd.dialogVisible" v-loading="pwd.loading" append-to-body>
       <el-form label-position="right" label-width="120px">
         <el-form-item label="请输入旧密码">
-          <el-input v-model="pwd.user.oldPassword"/>
+          <el-input v-model="pwd.user.oldPassword" show-password />
         </el-form-item>
         <el-form-item label="请输入新密码">
-          <el-input v-model="pwd.user.newPassword"/>
+          <el-input v-model="pwd.user.newPassword" show-password />
         </el-form-item>
         <el-form-item label="请确认新密码">
-          <el-input v-model="pwd.user.newPassword1"/>
+          <el-input v-model="pwd.user.newPassword1" show-password />
+        </el-form-item>
+        <el-form-item>
+          <span style="color: #8492a6; font-size: 13px">提示：修改后需重新登陆才可生效</span>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -69,6 +75,7 @@
 <script>
 import {getRequest} from "@/utils/http";
 import {getToken, removeToken} from "@/utils/auth";
+import {initUser, updateUserInfo} from "@/utils/system";
 
 name
 export default {
@@ -108,9 +115,6 @@ export default {
     }
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -126,6 +130,7 @@ export default {
       this.uploadFileRequest(this.$api.sys.user.imageUpload, fd).then(res => {
         this.imageUrl = res.fileUrl;
         this.message.success({ message: "修改成功", showClose: true })
+        updateUserInfo();
       });
       return false;
 
@@ -153,7 +158,7 @@ export default {
     editInfo(){
       this.info.dialogVisible = true;
       this.info.loading = true;
-      this.info.user = this.user;
+      this.info.user = JSON.parse(JSON.stringify(this.user));
       this.info.loading = false;
     },
     editPwd(){
@@ -167,14 +172,12 @@ export default {
       };
       this.pwd.user.id = this.user.id;
       this.pwd.loading = false;
-    },
-    submitAvatar(){},
-    submitInfo(){
+    }, submitInfo(){
       this.info.loading = true;
       this.jsonRequest(this.$api.sys.user.updateInfo, this.info.user).then(()=> {
         this.info.dialogVisible = false;
         this.message.success({ message: "修改信息成功", showClose: true })
-        this.findList({});
+        updateUserInfo();
       }).finally(()=> {
         this.info.loading = false;
       })
@@ -192,7 +195,7 @@ export default {
         }
         this.pwd.dialogVisible = false;
         this.message.success({ message: "修改密码成功", showClose: true })
-        this.findList({});
+        updateUserInfo();
       }).finally(()=> {
         this.pwd.loading = false;
       })
