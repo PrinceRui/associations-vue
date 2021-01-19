@@ -10,6 +10,7 @@ export default {
   login: "/login",
   logout: "/logout",
   userInfo: "/userInfo",
+  userMenu: "/userMenu",
   sys,
   ass
 }

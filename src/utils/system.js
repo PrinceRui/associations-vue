@@ -13,7 +13,7 @@ export const initMenu = (router, store) => {
         return;
     }
     /* 获取菜单 */
-    jsonRequest(api.sys.menu.treeList, {}).then(resp => {
+    getRequest(api.userMenu).then(resp => {
         /* 将菜单储存在store中 */
         store.commit("initMenu", resp);
     });

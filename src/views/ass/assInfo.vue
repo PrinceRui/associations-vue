@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div v-if="assList.length == 0">无权操作，详情请联系管理员</div>
+  <div v-else>
     <el-row style="margin-bottom: 10px">
       <el-col :span="4" style="padding-right: 10px">
         <el-select v-model="ass.id" @change="search">
@@ -147,6 +148,9 @@ export default {
   mounted () {
     this.getRequest(this.$api.ass.ass.masterList).then((res)=>{
       this.assList = res;
+      if(this.assList.length == 0){
+        return ;
+      }
       this.ass.id = res[0].id;
       this.search();
     })
