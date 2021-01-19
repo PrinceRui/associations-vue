@@ -45,7 +45,7 @@
        <template slot-scope="scope">
          <!--<el-link icon="el-icon-view" style="margin-right: 15px">查看</el-link>-->
          <el-link icon="el-icon-edit" style="margin-right: 15px" @click="resetPwd(scope.row)">重置密码</el-link>
-         <el-link icon="el-icon-delete" @click="del(scope.row)">删除</el-link>
+         <el-link icon="el-icon-delete" @click="del(scope.row)" type="danger">删除</el-link>
        </template>
      </el-table-column>
    </el-table>
@@ -61,7 +61,7 @@
      >
      </el-pagination>
    </div>
-   <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
+   <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="班级/部门">
          <el-select v-model="form.user.office.id" filterable>

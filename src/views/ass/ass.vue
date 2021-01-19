@@ -2,7 +2,7 @@
  <div>
    <el-row style="margin-bottom: 10px">
      <el-col :span="4" style="padding-right: 10px">
-       <el-input placeholder="姓名" v-model="ass.name" clearable />
+       <el-input placeholder="名称" v-model="ass.name" clearable />
      </el-col>
      <el-col :span="12" style="padding-right: 10px">
        <el-button round icon="el-icon-search" @click="search">搜索</el-button>
@@ -35,7 +35,7 @@
      <el-table-column label="操作">
        <template slot-scope="scope">
          <el-link icon="el-icon-edit" style="margin-right: 15px" @click="edit(scope.row)">编辑</el-link>
-         <el-link icon="el-icon-delete" @click="del(scope.row)">删除</el-link>
+         <el-link icon="el-icon-delete" @click="del(scope.row)" type="danger">删除</el-link>
        </template>
      </el-table-column>
    </el-table>
@@ -51,7 +51,7 @@
      >
      </el-pagination>
    </div>
-   <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
+   <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="名称">
          <el-input v-model="form.ass.name"/>

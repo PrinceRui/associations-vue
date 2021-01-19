@@ -28,7 +28,7 @@
           <el-link icon="el-icon-coordinate" style="margin-right: 15px" @click="openAuthDialog(scope.row.id)">分配权限</el-link>
           <el-link v-if="scope.row.id != '1'" icon="el-icon-user" style="margin-right: 15px" @click="openAssignroleDialog(scope.row.id)">分配用户</el-link>
           <el-link v-if="scope.row.id != '1'" icon="el-icon-edit" style="margin-right: 15px" @click="edit(scope.row)">编辑</el-link>
-          <el-link v-if="scope.row.id != '1'" icon="el-icon-delete" @click="del(scope.row)">删除</el-link>
+          <el-link v-if="scope.row.id != '1'" icon="el-icon-delete" @click="del(scope.row)" type="danger">删除</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -44,7 +44,7 @@
       >
       </el-pagination>
     </div>
-    <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
+    <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading">
       <el-form label-position="right" label-width="80px">
         <el-form-item label="名称">
           <el-input v-model="form.role.name"/>
@@ -55,7 +55,7 @@
         <el-button type="primary" @click="submitForm">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="auth.dialogVisible" v-loading="auth.loading">
+    <el-dialog :close-on-click-modal="false" :visible.sync="auth.dialogVisible" v-loading="auth.loading">
       <el-tree
           :data="auth.menus"
           show-checkbox
@@ -70,7 +70,7 @@
         <el-button type="primary" @click="submitAuth">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="assignRole.dialogVisible" v-loading="assignRole.loading" width="771px">
+    <el-dialog :close-on-click-modal="false" :visible.sync="assignRole.dialogVisible" v-loading="assignRole.loading" width="771px">
       <el-transfer
           filterable
           v-model="assignRole.value"

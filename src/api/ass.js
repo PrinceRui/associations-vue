@@ -18,6 +18,10 @@ export default {
         list: '/ass/activity/list',
         delete: '/ass/activity/delete',
         save: '/ass/activity/save',
+        submit: '/ass/activity/submit',
+        pass: '/ass/activity/pass',
+        back: '/ass/activity/back',
+        checkList: '/ass/activity/checkList',
     },
     assUser: {
         list: '/ass/assUser/list',

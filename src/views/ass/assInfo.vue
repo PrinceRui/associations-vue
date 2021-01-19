@@ -41,7 +41,7 @@
           </quill-editor>
         </el-row>
         <el-row>
-          <el-button size="small" type="primary" @click="updateSummary()">保存简介</el-button>
+          <el-button size="small" type="primary" @click="updateSummary()">修改简介</el-button>
         </el-row>
       </el-col>
     </el-row>

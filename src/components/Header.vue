@@ -18,7 +18,7 @@
         <el-avatar :src="user.photo" style="margin-top: 10px; margin-right: 15px; float: right"></el-avatar>
       </div>
     </el-col>
-    <el-dialog :visible.sync="avatar.dialogVisible" v-loading="avatar.loading" append-to-body width="300px" style="text-align: center">
+    <el-dialog :close-on-click-modal="false" :visible.sync="avatar.dialogVisible" v-loading="avatar.loading" append-to-body width="300px" style="text-align: center">
       <el-upload
           class="avatar-uploader"
           action=""
@@ -32,7 +32,7 @@
         <el-button type="primary" @click="avatar.dialogVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="info.dialogVisible" v-loading="info.loading" append-to-body>
+    <el-dialog :close-on-click-modal="false" :visible.sync="info.dialogVisible" v-loading="info.loading" append-to-body>
       <el-form label-position="right" label-width="80px">
         <el-form-item label="邮箱">
           <el-input v-model="info.user.email"/>
@@ -49,7 +49,7 @@
         <el-button type="primary" @click="submitInfo()">确 定</el-button>
       </div>
     </el-dialog>
-    <el-dialog :visible.sync="pwd.dialogVisible" v-loading="pwd.loading" append-to-body>
+    <el-dialog :close-on-click-modal="false" :visible.sync="pwd.dialogVisible" v-loading="pwd.loading" append-to-body>
       <el-form label-position="right" label-width="120px">
         <el-form-item label="请输入旧密码">
           <el-input v-model="pwd.user.oldPassword" show-password />

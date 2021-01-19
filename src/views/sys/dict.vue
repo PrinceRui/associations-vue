@@ -37,7 +37,7 @@
      <el-table-column label="操作">
        <template slot-scope="scope">
          <el-link icon="el-icon-edit" style="margin-right: 15px" @click="edit(scope.row)">编辑</el-link>
-         <el-link icon="el-icon-delete" @click="del(scope.row)">删除</el-link>
+         <el-link icon="el-icon-delete" @click="del(scope.row)" type="danger">删除</el-link>
        </template>
      </el-table-column>
    </el-table>
@@ -53,7 +53,7 @@
      >
      </el-pagination>
    </div>
-   <el-dialog :visible.sync="form.dialogVisible" v-loading="form.loading">
+   <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="描述">
          <el-input v-model="form.dict.description"/>
@@ -163,19 +163,19 @@ export default {
     /* 筛选 */
     search(){
       this.findList(this.dict)
+    },
+    handleSizeChange(val) {
+      this.dict.page.pageSize = val;
+      this.findList(this.dict);
+    },
+    handleCurrentChange(val) {
+      this.dict.page.pageNo = val;
+      this.findList(this.dict);
     }
   },
   mounted () {
     this.findList({})
   },
-  handleSizeChange(val) {
-    this.dict.page.pageSize = val;
-    this.findList(this.user);
-  },
-  handleCurrentChange(val) {
-    this.dict.page.pageNo = val;
-    this.findList(this.user);
-  }
 }
 </script>
 
