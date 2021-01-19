@@ -51,10 +51,10 @@
      >
      </el-pagination>
    </div>
-   <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading">
+   <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading" width="380px">
      <el-form label-position="right" label-width="80px">
        <el-form-item label="名称">
-         <el-input v-model="form.ass.name"/>
+         <el-input v-model="form.ass.name" style="width: 217px"/>
        </el-form-item>
        <el-form-item label="负责人">
          <el-select v-model="form.ass.master.id" placeholder="请选择" filterable>
@@ -68,9 +68,9 @@
            </el-option>
          </el-select>
        </el-form-item>
-       <el-form-item label="logo">
+       <!--<el-form-item label="logo">
          <el-input v-model="form.ass.photo"/>
-       </el-form-item>
+       </el-form-item>-->
      </el-form>
      <div slot="footer" class="dialog-footer">
        <el-button @click="form.dialogVisible = false">取 消</el-button>
