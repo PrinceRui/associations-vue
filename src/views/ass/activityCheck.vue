@@ -13,12 +13,6 @@
          {{ scope.row.ass.name }}
        </template>
      </el-table-column>
-<!--     <el-table-column
-         prop="startTime"
-         label="发布时间"/>-->
-     <el-table-column
-         prop="endTime"
-         label="截止报名时间"/>
      <el-table-column label="审核状态">
        <el-tag size="small" type="" effect="dark">待审核</el-tag>
      </el-table-column>

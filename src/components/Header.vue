@@ -5,7 +5,7 @@
       <div style="height: 60px">
         <el-dropdown style="float: right;margin-top: 20px; margin-right: 20px" @command="handleCommand">
           <div style="color: #fff">
-            {{ user.office.name }} -- {{ user.name}}
+            {{ user.num }} -- {{ user.name}}
             <i class="el-icon-arrow-down el-icon--right"></i>
           </div>
           <el-dropdown-menu slot="dropdown">
