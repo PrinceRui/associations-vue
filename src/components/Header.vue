@@ -77,9 +77,14 @@
 import {getRequest} from "@/utils/http";
 import {getToken, removeToken} from "@/utils/auth";
 import {initUser, updateUserInfo} from "@/utils/system";
+import store from "@/store";
+import Home from "@/views/Home";
 
 export default {
   name: "Header",
+  components: {
+    Home: Home,
+  },
   data(){
     return {
       img: require('../assets/logo.png'),
@@ -205,6 +210,10 @@ export default {
       getRequest(this.$api.logout).then(resp => {
         /* 将菜单储存在store中 */
         removeToken();
+        store.commit("initMenu", []);
+        store.commit("initUser", '');
+        store.commit("initDict", []);
+        location.reload();
         this.$router.push('/');
       });
     },

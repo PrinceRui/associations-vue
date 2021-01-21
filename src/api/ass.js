@@ -25,8 +25,7 @@ export default {
     },
     assUser: {
         list: '/ass/assUser/list',
-        agree: '/ass/assUser/agree',
-        refuse: '/ass/assUser/refuse',
+        save: '/ass/assUser/save',
         delete: '/ass/assUser/delete'
     }
 }

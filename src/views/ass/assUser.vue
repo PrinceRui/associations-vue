@@ -7,7 +7,8 @@
           <el-option v-for="item in assList" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
       </el-col>
-      <el-col :span="20" style="padding-right: 10px">
+      <el-col :span="20" style="text-align: right">
+        <el-button icon="el-icon-plus" @click="openAddDialog">增加</el-button>
       </el-col>
     </el-row>
     <el-table
@@ -44,24 +45,9 @@
           {{ scope.row.user.电话 }}
         </template>
       </el-table-column>
-      <el-table-column
-          show-overflow-tooltip
-          prop="info"
-          label="申请信息"/>
-      <el-table-column label="状态">
-        <template slot-scope="scope">
-          <el-tag type="warning" effect="dark" size="small" v-if="scope.row.status == '0'">{{ getDictLabel(scope.row.status, "ass_user_status") }}</el-tag>
-          <el-tag type="success" effect="dark" size="small" v-else>{{ getDictLabel(scope.row.status, "ass_user_status") }}</el-tag>
-        </template>
-      </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <div v-if="scope.row.status == '0'">
-            <el-link icon="el-icon-check" type="primary" @click="agree(scope.row)">同意</el-link>
-            &nbsp;&nbsp;
-            <el-link icon="el-icon-close" type="warning" @click="refuse(scope.row)">拒绝</el-link>
-          </div>
-          <el-link v-else icon="el-icon-delete" @click="del(scope.row)" type="danger">移除</el-link>
+          <el-link icon="el-icon-delete" @click="del(scope.row)" type="danger">移除</el-link>
         </template>
       </el-table-column>
     </el-table>
@@ -77,6 +63,28 @@
       >
       </el-pagination>
     </div>
+    <el-dialog :close-on-click-modal="false" :visible.sync="form.dialogVisible" v-loading="form.loading" width="380px">
+      <el-form label-position="right" label-width="80px">
+        <el-form-item label="用户">
+          <el-select v-model="form.assUser.user.id" placeholder="请选择" filterable>
+            <el-option
+                v-for="item in form.users"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              <span style="float: left">{{ item.name }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{ item.num }}</span>
+            </el-option>
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="form.dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+      </div>
+    </el-dialog>
+
+
   </div>
 </template>
 
@@ -97,9 +105,43 @@ export default {
           id: ''
         }
       },
+      form: {
+        users: '',
+        dialogVisible: false,
+        loading: false,
+        assUser: {
+          ass: {
+            id: ''
+          },
+          user: {
+            id: ''
+          },
+        }
+      }
     }
   },
   methods: {
+
+    /* 打开增加窗口 */
+    openAddDialog(){
+      this.getAllUser();
+      this.form.dialogVisible = true;
+      this.form.loading = false;
+      this.form.assUser.ass = this.assUser.ass;
+      this.form.assUser.user.id = '';
+    },
+    /* 提交增加修改的数据 */
+    submitForm(){
+      this.form.loading = true;
+      this.jsonRequest(this.$api.ass.assUser.save, this.form.assUser).then(()=> {
+        this.form.dialogVisible = false;
+        this.message.success({ message: "添加成员成功", showClose: true })
+        this.findList(this.assUser);
+      }).finally(()=> {
+        this.form.loading = false;
+      })
+    },
+
     /** 分页查询用户列表 */
     findList (ass) {
       this.loading = true
@@ -121,30 +163,6 @@ export default {
       this.assUser.page.pageNo = val;
       this.findList(this.assUser);
     },
-    agree(assUser){
-      this.jsonRequest(this.$api.ass.assUser.agree, assUser).then((res)=>{
-        this.findList(this.assUser);
-        this.message.success({ message: "同意'"+assUser.user.name+"'加入", showClose: true })
-      })
-    },
-    refuse(assUser){
-
-      this.$prompt('请输入拒绝信息', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputType: 'textarea',
-        inputValue: '抱歉，您不合适。'
-      }).then(({ value }) => {
-        assUser.remark = value;
-        this.jsonRequest(this.$api.ass.assUser.refuse, assUser).then((res)=>{
-          this.findList(this.assUser);
-          this.message.warning({ message: "拒绝'"+assUser.user.name+"'加入", showClose: true })
-        })
-      })
-
-
-
-    },
     del(assUser){
       this.$confirm("确认移除'"+assUser.user.name+"'吗?", "警告", {
         confirmButtonText: "确定",
@@ -156,6 +174,12 @@ export default {
         }).then(() => {
           this.findList(this.assUser);
         });
+      })
+    },
+    /* 获取所有用户 */
+    getAllUser(){
+      this.getRequest(this.$api.sys.user.getAllUser).then((res)=>{
+        this.form.users = res;
       })
     },
   },

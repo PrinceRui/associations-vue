@@ -62,6 +62,8 @@
           node-key="id"
           :default-checked-keys="auth.checked"
           ref="tree"
+          default-expand-all
+          check-strictly
           :props="{ id: 'id', children: 'childs', label: 'name'}">
       </el-tree>
 
@@ -196,8 +198,15 @@ export default {
     },
     /* 提交管理权限 */
     submitAuth() {
-      this.auth.loading = true;
-      this.formRequest(this.$api.sys.role.auth, { roleId: this.auth.role.id, menuIds: this.$refs.tree.getCheckedKeys() + '' }).then(()=> {
+      //this.auth.loading = true;
+      console.log(this.$refs.tree.getCheckedNodes(false, true));
+      let ids1 = this.$refs.tree.getCheckedKeys();
+      console.log(ids1);
+      let ids2 = this.$refs.tree.getHalfCheckedKeys();
+      console.log(ids2);
+      let ids = ids1.concat(ids2);
+      console.log(ids);
+      this.formRequest(this.$api.sys.role.auth, { roleId: this.auth.role.id, menuIds: ids + '' }).then(()=> {
         this.auth.dialogVisible = false;
         this.message.success({ message: "管理'"+this.auth.role.name+"'的权限成功", showClose: true })
         this.findList({});

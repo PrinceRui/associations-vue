@@ -22,10 +22,10 @@ module.exports = {
     proxy: {
       // detail: https://cli.vuejs.org/config/#devserver-proxy
       '/apis': {
-        target: 'http://localhost:8081',
+        target: 'http://localhost',
         changeOrigin: true,
         pathRewrite: {
-          '^/apis': 'http://localhost:8081'
+          '^/apis': 'http://localhost'
         }
       }
     },

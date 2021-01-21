@@ -48,6 +48,7 @@
       <el-form label-position="right" label-width="80px">
         <el-form-item label="父部门">
           <el-select v-model="form.office.parent.id" filterable>
+            <el-option label="无" :value="0"/>
             <el-option v-for="item in form.offices" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
         </el-form-item>

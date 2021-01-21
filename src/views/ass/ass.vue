@@ -161,6 +161,7 @@ export default {
     },
     /* 编辑按钮操作 */
     edit(ass) {
+      this.getAllUser();
       this.form.ass = JSON.parse(JSON.stringify(ass));
       this.form.dialogVisible = true;
       this.form.loading = false;
