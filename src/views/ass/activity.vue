@@ -70,7 +70,8 @@
         </el-form-item>
       </el-form>
       <div style="height: 500px">
-        <quill-editor class="editor"
+        <quill-editor
+                      class="editor"
                       ref="myTextEditor"
                       v-model="form.activity.content"
                       :options="editorOption"
@@ -248,6 +249,7 @@ export default {
     /* 编辑按钮操作 */
     edit(activity) {
       this.form.activity = JSON.parse(JSON.stringify(activity));
+      console.log(this.form.activity.content);
       this.form.dialogVisible = true;
       this.form.loading = false;
     },
@@ -295,6 +297,7 @@ export default {
 .editor {
   line-height: normal !important;
   height: 450px;
+  white-space: pre-wrap;
 }
 
 .ql-snow .ql-tooltip[data-mode=link]::before {
